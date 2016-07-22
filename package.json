@@ -1,5 +1,5 @@
 {
-  "name": "starter-basic",
+  "name": "react-router-starter",
   "version": "1.0.0",
   "description": "React/Router Starter Project",
   "main": "src/index.jsx",

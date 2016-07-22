@@ -1,6 +1,6 @@
-# Basic Starter React Project
+# React/Router Starter Project
 
-This is a basic starter project to create React based apps.
+This is a simple starter project to create React/React-router based apps.
 
 ## Get started:
 
@@ -11,3 +11,11 @@ This is a basic starter project to create React based apps.
 3. To start: ```$ npm start```
 
 Just it.
+
+To Production output:
+
+```
+$ npm run build
+```
+
+Good code and have fun. [:)]
