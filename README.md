@@ -6,16 +6,16 @@ This is a simple starter project to create React/React-router based apps.
 
 1. Clone this repo
 
-2. On your shell type: ```$ npm install```
+2. On your shell type: ```$ yarn ```
 
-3. To start: ```$ npm start```
+3. To start: ```$ yarn run dev```
 
 Just it.
 
 To Production output:
 
 ```
-$ npm run build
+$ yarn run build
 ```
 
 Good code and have fun. [:)]

@@ -1,9 +1,9 @@
 import 'index.css'
 import { render } from 'react-dom'
-import routes from 'routes'
+import App from 'containers/app'
 
 document.addEventListener('DOMContentLoaded', (evt) => {
   'use strict'
   console.log('React/Router Starter Project')
-  render(routes, document.querySelector('#app'))
+  render(<App />, document.querySelector('#app'))
 })
