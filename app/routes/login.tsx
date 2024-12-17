@@ -35,7 +35,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
     return (
         <div className="flex flex-col items-center gap-3 justify-center h-full">
             {actionData && !actionData.success && (
-                <div className="p-2 border-red-500 bg-red-100 text-red-500 rounded-md min-w-96">
+                <div className="p-3 border-red-500 bg-red-100 text-red-500 rounded-md min-w-96">
                     <span>{actionData.message}</span>
                 </div>
             )}

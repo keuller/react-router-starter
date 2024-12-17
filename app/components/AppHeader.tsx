@@ -1,12 +1,13 @@
+import { Link } from "react-router";
 
 export default function AppHeader({ hasUser }: { hasUser: boolean }) {
     return (
         <header className="flex items-center justify-between border-b px-4 py-3">
             <h2 className="text-xl font-medium">Starter</h2>
             {!hasUser && (<nav className="flex gap-1 items-center">
-                <a href="/login" className="text-sm">Login</a>
+                <Link to="/login" className="text-sm" viewTransition>Login</Link>
                 <span>&nbsp;|&nbsp;</span>
-                <a href="/register" className="text-sm">Register</a>
+                <Link to="/register" className="text-sm" viewTransition>Register</Link>
             </nav>)}
 
             {hasUser && (<nav className="flex gap-1 items-center">

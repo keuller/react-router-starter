@@ -4,7 +4,6 @@ import { Welcome } from "~/welcome/welcome";
 import { Await, redirect } from "react-router";
 import { userCookie } from "~/lib/cookies.server";
 
-// { params }: Route.LoaderArgs
 export async function loader({ request }: Route.LoaderArgs) {
   const cookieHeader = request.headers.get("Cookie");
   const user: string | null = await userCookie.parse(cookieHeader);
