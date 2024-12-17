@@ -1,6 +1,6 @@
 import type { Route } from "./+types/login";
 import { userCookie } from "~/lib/cookies.server";
-import { Form, redirect, useNavigation } from "react-router";
+import { data, Form, redirect, useNavigation } from "react-router";
 
 export function meta() {
     return [
@@ -9,12 +9,13 @@ export function meta() {
 }
 
 export async function action({ request }: Route.ActionArgs) {
-    const data = Object.fromEntries(await request.formData());
+    const { email, password } = Object.fromEntries(await request.formData());
+    const message = "Invalid credentials, try again.";
 
     await new Promise((res) => setTimeout(res, 1000));
 
-    console.log("[login]", data);
-    if (data.email === "admin@test.com" && data.password === "abc123") {
+    console.log("[login]", { email, password });
+    if (email === "admin@test.com" && password === "abc123") {
         return redirect("/", {
             status: 302,
             headers: {
@@ -23,10 +24,7 @@ export async function action({ request }: Route.ActionArgs) {
         });
     }
 
-    return {
-        success: false,
-        message: "Invalid credentials"
-    }
+    return data({ message }, { status: 400 });
 }
 
 export default function Login({ actionData }: Route.ComponentProps) {
@@ -34,7 +32,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
 
     return (
         <div className="flex flex-col items-center gap-3 justify-center h-full">
-            {actionData && !actionData.success && (
+            {actionData && (
                 <div className="p-3 border-red-500 bg-red-100 text-red-500 rounded-md min-w-96">
                     <span>{actionData.message}</span>
                 </div>
