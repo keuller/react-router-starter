@@ -1,21 +1,19 @@
 import { isbot } from "isbot";
 import { PassThrough } from "node:stream";
-import { ServerRouter } from "react-router";
-import { createReadableStreamFromReadable } from "@react-router/node";
 import { renderToPipeableStream } from "react-dom/server";
+import { ServerRouter, type EntryContext } from "react-router";
+import { createReadableStreamFromReadable } from "@react-router/node";
 
 const ABORT_DELAY = 5_000;
 
-export default function handleRequest(request: Request, responseStatusCode: number, responseHeaders: Headers, routerContext) {
+export default function handleRequest(request: Request, responseStatusCode: number, responseHeaders: Headers, routerContext: EntryContext) {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     let userAgent = request.headers.get("user-agent");
 
     // Ensure requests from bots and SPA Mode renders wait for all content to load before responding
     // https://react.dev/reference/react-dom/server/renderToPipeableStream#waiting-for-all-content-to-load-for-crawlers-and-static-generation
-    let readyOption = (userAgent && isbot(userAgent)) || routerContext.isSpaMode
-      ? "onAllReady"
-      : "onShellReady";
+    let readyOption = (userAgent && isbot(userAgent)) || routerContext.isSpaMode ? "onAllReady" : "onShellReady";
 
     const { pipe, abort } = renderToPipeableStream(
       <ServerRouter context={routerContext} url={request.url} abortDelay={ABORT_DELAY} />,

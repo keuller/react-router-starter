@@ -11,20 +11,20 @@ export function meta() {
 export async function action({ request }: Route.ActionArgs) {
     const { email, password } = Object.fromEntries(await request.formData());
     const message = "Invalid credentials, try again.";
+    const isValidCredentials = email === "admin@test.com" && password === "abc123";
 
     await new Promise((res) => setTimeout(res, 1000));
 
     console.log("[login]", { email, password });
-    if (email === "admin@test.com" && password === "abc123") {
-        return redirect("/", {
-            status: 302,
-            headers: {
-                "Set-Cookie": await userCookie.serialize("user-test"),
-            }
-        });
-    }
 
-    return data({ message }, { status: 400 });
+    if (!isValidCredentials) return data({ message }, { status: 400 });
+
+    return redirect("/", {
+        status: 302,
+        headers: {
+            "Set-Cookie": await userCookie.serialize("user-test"),
+        }
+    });
 }
 
 export default function Login({ actionData }: Route.ComponentProps) {
@@ -34,7 +34,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
         <div className="flex flex-col items-center gap-3 justify-center h-full">
             {actionData && (
                 <div className="p-3 border-red-500 bg-red-100 text-red-500 rounded-md min-w-96">
-                    <span>{actionData.message}</span>
+                    <span>{actionData.message ?? "Sorry for that, try again in few minutes, please."}</span>
                 </div>
             )}
 

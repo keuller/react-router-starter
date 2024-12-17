@@ -1,7 +1,7 @@
 import stylesheet from "~/app.css?url";
 import type { Route } from "./+types/default";
 import AppHeader from "~/components/AppHeader";
-import { userCookie } from "~/lib/cookies.server";
+import { isAuthenticated } from "~/lib/cookies.server";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 export const meta = () => {
@@ -22,11 +22,9 @@ export const links = () => [
 ];
 
 export async function loader({ request }: Route.LoaderArgs) {
-    const cookieHeader = request.headers.get("Cookie");
-    const user: string | null = await userCookie.parse(cookieHeader);
-
+    const isLoggedIn = await isAuthenticated(request);
     return {
-        isLoggedIn: user !== null,
+        isLoggedIn,
     }
 }
 
