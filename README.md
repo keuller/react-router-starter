@@ -32,6 +32,8 @@ pnpm dev
 
 Your application will be available at `http://localhost:3000`.
 
+> Default credentials: E-mail: admin@test.com | Password: abc123
+
 ## Building for Production
 
 Create a production build:
